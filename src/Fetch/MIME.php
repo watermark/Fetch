@@ -37,6 +37,7 @@ final class MIME
         foreach (imap_mime_header_decode($text) as $word) {
             $ch = 'default' === $word->charset ? 'ascii' : $word->charset;
 
+            $word->text = mb_convert_encoding($word->text, $ch, $ch);
             $result .= iconv($ch, $targetCharset.'//TRANSLIT', $word->text);
         }
 
